@@ -7,6 +7,8 @@ interface HeaderProps {
   wardName: string;
 }
 
+
+
 export default function Header({ wardName }: HeaderProps) {
   const [currentDate, setCurrentDate] = useState('');
 

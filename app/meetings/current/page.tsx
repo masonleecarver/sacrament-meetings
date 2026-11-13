@@ -1,4 +1,6 @@
+
 import { redirect, notFound } from 'next/navigation';
+import { connection } from 'next/server';
 import { getMeetings } from '@/lib/meetings-db';
 
 function getCurrentSundayDate(): string {
@@ -17,10 +19,12 @@ function getCurrentSundayDate(): string {
   return `${year}-${month}-${date}`;
 }
 
-export default function CurrentMeetingPage() {
+export default async function CurrentMeetingPage() {
+  await connection();
+
   const sundayDate = getCurrentSundayDate();
 
-  const meetings = getMeetings(sundayDate);
+  const meetings = await getMeetings(sundayDate);
 
   if (meetings.length === 0) {
     notFound();
